@@ -1,0 +1,203 @@
+/* MultipleFiles/responsive.css */
+/* ==========================================================================
+   6. Responsive Design
+   ========================================================================== */
+
+@media (max-width: 992px) {
+    nav {
+        justify-content: center;
+        margin-top: var(--space-md);
+    }
+
+    .search-box {
+        margin-left: 0;
+        margin-top: var(--space-sm);
+        width: 100%;
+        justify-content: center;
+    }
+
+    .search-box input {
+        width: 80%;
+    }
+
+    .btn-logout {
+        margin-left: var(--space-sm);
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: var(--space-lg);
+        margin: var(--space-md) auto;
+    }
+
+    header {
+        flex-direction: column;
+        padding: var(--space-md);
+    }
+
+    .header-content {
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+
+    .logo {
+        margin-right: 0;
+        margin-bottom: var(--space-md);
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-xs);
+        width: 100%;
+    }
+
+    nav a {
+        width: 100%;
+        text-align: center;
+        margin: 0;
+    }
+
+    .search-box {
+        margin-top: var(--space-md);
+        width: 100%;
+    }
+
+    .search-box input {
+        width: 100%;
+    }
+
+    .btn-logout {
+        margin-left: 0;
+        margin-top: var(--space-sm);
+    }
+
+    .features {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .feature-box {
+        width: 90%;
+        min-width: unset;
+        padding: var(--space-lg);
+    }
+
+    .trainer-card {
+        width: 90%;
+        padding: var(--space-lg);
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    th,
+    td {
+        min-width: 120px;
+        padding: var(--space-sm);
+    }
+
+    .auth-form {
+        padding: var(--space-lg);
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .form-actions .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .form-popup {
+        max-width: 95%;
+        width: 90%;
+    }
+
+    .search-filter-bar {
+        flex-direction: column;
+        gap: var(--space-sm);
+    }
+
+    .search-filter-bar input {
+        max-width: 100%;
+    }
+
+    .form-content .form-actions {
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+
+    .form-content .form-actions .btn {
+        width: 100%;
+    }
+
+    .report-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo h1 {
+        font-size: var(--font-size-xl);
+    }
+
+    header h1 {
+        font-size: var(--font-size-h2);
+    }
+
+    .hero-section h2 {
+        font-size: var(--font-size-xl);
+    }
+
+    .hero-text {
+        font-size: var(--font-size-base);
+    }
+
+    .package-header h3 {
+        font-size: var(--font-size-lg);
+    }
+
+    .package-price {
+        font-size: var(--font-size-lg);
+    }
+
+    .btn {
+        padding: var(--space-sm) var(--space-md);
+        font-size: var(--font-size-sm);
+    }
+
+    .form-control,
+    .form-content input,
+    .form-content select,
+    .form-content textarea {
+        font-size: var(--font-size-sm);
+        padding: var(--space-xs);
+    }
+
+    .auth-form h2,
+    .page-header h2 {
+        font-size: var(--font-size-xl);
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .auth-form h2 i,
+    .page-header h2 i {
+        margin-right: 0;
+        margin-bottom: var(--space-xs);
+    }
+
+    .form-popup h3 {
+        font-size: var(--font-size-lg);
+    }
+
+    .form-popup .form-grid {
+        grid-template-columns: 1fr;
+    }
+}

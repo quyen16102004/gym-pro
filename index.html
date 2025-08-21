@@ -1,0 +1,586 @@
+<!-- MultipleFiles/index.html -->
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Hệ thống quản lý phòng tập thể hình chuyên nghiệp, quản lý hội viên, huấn luyện viên, lịch tập và thanh toán dễ dàng.">
+    <meta name="keywords"
+        content="quản lý phòng tập, gym, fitness, hội viên, huấn luyện viên, lịch tập, thanh toán, phần mềm gym">
+    <meta name="author" content="Your Name/Company Name">
+    <title>GYM PRO - Hệ thống quản lý phòng Gym</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="popups.css">
+    <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fa-solid fa-person-fitness" style="font-size:50px; color:#067cfa;"></i>
+                <h1>GYM PRO</h1>
+            </div>
+            <nav id="nav-public">
+                <a href="#" onclick="showPage('home')" aria-label="Trang chủ">TRANG CHỦ</a>
+                <a href="#" onclick="showPage('login')" aria-label="Đăng nhập">ĐĂNG NHẬP</a>
+                <div class="search-box">
+                    <input type="text" placeholder="Tìm kiếm..." aria-label="Ô tìm kiếm">
+                    <button aria-label="Nút tìm kiếm"><i class="fas fa-search"></i></button>
+                </div>
+            </nav>
+            <nav id="nav-private" class="hidden">
+                <a href="#" onclick="showPage('home')" aria-label="Trang chủ">TRANG CHỦ</a>
+                <a href="#" onclick="showPage('member')" aria-label="Quản lý hội viên">HỘI VIÊN</a>
+                <a href="#" onclick="showPage('transaction')" aria-label="Quản lý giao dịch">GIAO DỊCH</a>
+                <a href="#" onclick="showPage('report')" aria-label="Báo cáo thống kê">BÁO CÁO</a>
+                <a href="#" onclick="showPage('trainer')" aria-label="Quản lý huấn luyện viên">HUẤN LUYỆN VIÊN</a>
+                <a href="#" onclick="showPage('package')" aria-label="Quản lý gói tập">GÓI TẬP</a>
+                <a href="#" onclick="showPage('account')" aria-label="Quản lý tài khoản">TÀI KHOẢN</a>
+                <div class="search-box">
+                    <input type="text" placeholder="Tìm kiếm..." aria-label="Ô tìm kiếm">
+                    <button aria-label="Nút tìm kiếm"><i class="fas fa-search"></i></button>
+                </div>
+                <button class="btn-logout" aria-label="Đăng xuất" onclick="logout()"><i class="fas fa-sign-out-alt"></i>
+                    Đăng xuất</button>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Home Page (Dashboard) -->
+        <div id="home" class="page">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h2>CHÀO MỪNG ĐẾN VỚI GYM PRO</h2>
+                    <p class="hero-text">HỆ THỐNG QUẢN LÝ PHÒNG TẬP CỦA BẠN MỘT CÁCH HIỆU QUẢ VÀ CHUYÊN NGHIỆP</p>
+                    <button class="btn btn-primary" onclick="showPage('login')" aria-label="Bắt đầu ngay">BẮT ĐẦU
+                        NGAY</button>
+                </div>
+            </div>
+            <div class="features mt-5">
+                <div class="feature-box">
+                    <i class="fas fa-users"></i>
+                    <h3>HỘI VIÊN</h3>
+                    <p>QUẢN LÝ THÔNG TIN HỘI VIÊN</p>
+                </div>
+                <div class="feature-box">
+                    <i class="fas fa-exchange-alt"></i>
+                    <h3>GIAO DỊCH</h3>
+                    <p>THEO DÕI LỊCH SỬ GIAO DỊCH</p>
+                </div>
+                <div class="feature-box">
+                    <i class="fas fa-chart-bar"></i>
+                    <h3>BÁO CÁO</h3>
+                    <p>THỐNG KÊ DOANH THU & HOẠT ĐỘNG</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Member Management Page -->
+        <div id="member" class="page hidden">
+            <div class="page-header">
+                <h2><i class="fas fa-users"></i> QUẢN LÝ HỘI VIÊN</h2>
+                <button class="btn btn-primary" onclick="showFormPopup('member')" aria-label="Thêm hội viên mới">
+                    <i class="fas fa-plus-circle"></i> Thêm hội viên
+                </button>
+            </div>
+
+            <div class="page-header mt-5">
+                <h2><i class="fas fa-list"></i> DANH SÁCH HỘI VIÊN</h2>
+                <div class="search-filter-bar">
+                    <input type="text" id="member-search" placeholder="Tìm kiếm hội viên..." onkeyup="renderMembers()"
+                        aria-label="Tìm kiếm hội viên">
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Họ tên</th>
+                            <th>Ngày sinh</th>
+                            <th>Giới tính</th>
+                            <th>Điện thoại</th>
+                            <th>Email</th>
+                            <th>Địa chỉ</th>
+                            <th>Gói tập</th>
+                            <th>PT</th>
+                            <th>Ngày bắt đầu</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="member-list"></tbody>
+                </table>
+            </div>
+            <div id="member-pagination" class="pagination-controls"></div>
+        </div>
+
+        <!-- Transaction Page -->
+        <div id="transaction" class="page hidden">
+            <div class="page-header">
+                <h2><i class="fas fa-exchange-alt"></i> LỊCH SỬ GIAO DỊCH</h2>
+                <button class="btn btn-primary" onclick="showFormPopup('transaction')" aria-label="Thêm giao dịch mới">
+                    <i class="fas fa-plus-circle"></i> Thêm giao dịch
+                </button>
+            </div>
+            <div class="search-filter-bar">
+                <input type="text" id="transaction-search" placeholder="Tìm kiếm giao dịch..."
+                    onkeyup="renderTransactions()" aria-label="Tìm kiếm giao dịch">
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mã GD</th>
+                            <th>Ngày</th>
+                            <th>Hội viên</th>
+                            <th>Gói tập</th>
+                            <th>Mô tả</th>
+                            <th>Số tiền</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transaction-list">
+                        <!-- Transactions will be rendered here by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="transaction-pagination" class="pagination-controls"></div>
+            <div class="payment-summary card mt-5">
+                <h3><i class="fas fa-money-bill-wave"></i> TỔNG DOANH THU: <span id="total-revenue">0đ</span></h3>
+            </div>
+        </div>
+
+        <!-- Report Page -->
+        <div id="report" class="page hidden">
+            <div class="page-header">
+                <h2><i class="fas fa-chart-bar"></i> BÁO CÁO & THỐNG KÊ</h2>
+            </div>
+
+            <div class="report-grid">
+                <div class="report-card card">
+                    <h3><i class="fas fa-users"></i> Tổng số hội viên</h3>
+                    <p class="report-value" id="total-members-report">0</p>
+                </div>
+                <div class="report-card card">
+                    <h3><i class="fas fa-user-tie"></i> Tổng số huấn luyện viên</h3>
+                    <p class="report-value" id="total-trainers-report">0</p>
+                </div>
+                <div class="report-card card">
+                    <h3><i class="fas fa-dollar-sign"></i> Doanh thu tháng này</h3>
+                    <p class="report-value" id="monthly-revenue-report">0đ</p>
+                </div>
+                <div class="report-card card">
+                    <h3><i class="fas fa-box-open"></i> Số gói tập đã bán</h3>
+                    <p class="report-value" id="packages-sold-report">0</p>
+                </div>
+            </div>
+
+            <h3 class="mt-5 section-title"><i class="fas fa-table"></i> BÁO CÁO CHI TIẾT</h3>
+            <div class="table-responsive card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Loại báo cáo</th>
+                            <th>Số liệu</th>
+                            <th>Chi tiết</th>
+                        </tr>
+                    </thead>
+                    <tbody id="detailed-report-list">
+                        <tr>
+                            <td>Hội viên sắp hết hạn</td>
+                            <td>5</td>
+                            <td><button class="btn-action view-btn btn-small">Xem</button></td>
+                        </tr>
+                        <tr>
+                            <td>Gói tập bán chạy nhất</td>
+                            <td>Premium 6 tháng</td>
+                            <td><button class="btn-action view-btn btn-small">Xem</button></td>
+                        </tr>
+                        <tr>
+                            <td>Huấn luyện viên có nhiều học viên nhất</td>
+                            <td>Trần Văn B</td>
+                            <td><button class="btn-action view-btn btn-small">Xem</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Trainer Management Page -->
+        <div id="trainer" class="page hidden">
+            <div class="page-header">
+                <h2><i class="fas fa-user-tie"></i> QUẢN LÝ HUẤN LUYỆN VIÊN</h2>
+                <button class="btn btn-primary" onclick="showFormPopup('trainer')"
+                    aria-label="Thêm huấn luyện viên mới">
+                    <i class="fas fa-plus-circle"></i> Thêm huấn luyện viên
+                </button>
+            </div>
+            <div class="search-filter-bar">
+                <input type="text" id="trainer-search" placeholder="Tìm kiếm huấn luyện viên..."
+                    onkeyup="renderTrainers()" aria-label="Tìm kiếm huấn luyện viên">
+            </div>
+            <div class="trainer-list" id="trainer-list">
+            </div>
+        </div>
+
+        <!-- Package Management Page -->
+        <div id="package" class="page hidden">
+            <div class="page-header">
+                <h2><i class="fas fa-box-open"></i> QUẢN LÝ GÓI TẬP</h2>
+                <button class="btn btn-primary" onclick="showFormPopup('package')" aria-label="Thêm gói tập mới">
+                    <i class="fas fa-plus-circle"></i> Thêm gói tập
+                </button>
+            </div>
+            <div class="package-container" id="package-container">
+            </div>
+        </div>
+
+        <!-- Account Management Page -->
+        <div id="account" class="page hidden">
+            <div class="page-header">
+                <h2><i class="fas fa-user-cog"></i> QUẢN LÝ TÀI KHOẢN</h2>
+                <button class="btn btn-primary" onclick="showFormPopup('account')" aria-label="Thêm tài khoản mới">
+                    <i class="fas fa-user-plus"></i> Thêm tài khoản
+                </button>
+            </div>
+            <div class="search-filter-bar">
+                <input type="text" id="account-search" placeholder="Tìm kiếm tài khoản..." onkeyup="renderAccounts()"
+                    aria-label="Tìm kiếm tài khoản">
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tên đăng nhập</th>
+                            <th>Họ tên</th>
+                            <th>Email</th>
+                            <th>Quyền</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="account-list"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Login Page -->
+        <div id="login" class="page hidden">
+            <div class="auth-container card compact-auth">
+                <div id="login-tab" class="auth-form">
+                    <h2 class="text-center mb-4"><i class="fas fa-sign-in-alt"></i> ĐĂNG NHẬP HỆ THỐNG</h2>
+                    <form onsubmit="login(event)">
+                        <div class="form-group compact-group">
+                            <label for="login-username"><i class="fas fa-user"></i> Tài khoản</label>
+                            <input type="text" id="login-username" class="form-control compact-input"
+                                placeholder="Tài khoản" required aria-label="Tên tài khoản đăng nhập">
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password"><i class="fas fa-lock"></i> Mật khẩu</label>
+                            <input type="password" id="login-password" class="form-control" placeholder="Nhập mật khẩu"
+                                required aria-label="Mật khẩu đăng nhập">
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" id="remember-me" aria-label="Nhớ mật khẩu">
+                            <label for="remember-me">Nhớ mật khẩu</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block" aria-label="Nút đăng nhập">
+                            <i class="fas fa-sign-in-alt"></i> Đăng Nhập
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 GYM PRO - Hệ Thống Quản Lý Thể Hình Chuyên Nghiệp</p>
+    </footer>
+
+    <!-- Overlay for Popups -->
+    <div id="overlay" class="overlay"></div>
+
+    <!-- Unified Form Popup - Compact Version -->
+    <div id="unified-form-popup" class="form-popup compact-form" role="dialog" aria-modal="true"
+        aria-labelledby="form-popup-title">
+        <div class="popup-header">
+            <h3 id="form-popup-title"></h3>
+            <button class="close-popup" aria-label="Đóng form" onclick="hideAllForms()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!-- Member Form Content -->
+        <div id="member-form-content" class="form-content" data-form-type="member">
+            <div class="form-header compact-header">
+                <div class="form-header-content">
+                    <i class="fas fa-user-circle"></i>
+                    <h3>Thông tin hội viên</h3>
+                </div>
+            </div>
+            <div class="form-grid">
+                <div class="form-group compact-group">
+                    <label for="mem-id"><i class="fas fa-id-badge"></i> ID Hội viên</label>
+                    <input type="text" id="mem-id" class="compact-input" placeholder="Tự động tạo" readonly
+                        aria-label="ID Hội viên">
+                </div>
+                <div class="form-group compact-group">
+                    <label for="mem-name"><i class="far fa-user"></i> Họ tên</label>
+                    <input id="mem-name" class="compact-input" placeholder="Nguyễn Văn A" required
+                        aria-label="Họ tên hội viên">
+                </div>
+                <div class="form-group">
+                    <label for="mem-dob"><i class="far fa-calendar-alt"></i> Ngày sinh</label>
+                    <input type="date" id="mem-dob" required aria-label="Ngày sinh hội viên">
+                </div>
+                <div class="form-group">
+                    <label for="mem-gender"><i class="fas fa-venus-mars"></i> Giới tính</label>
+                    <select id="mem-gender" required aria-label="Giới tính hội viên">
+                        <option value="">Chọn giới tính</option>
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+                        <option value="Khác">Khác</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="mem-phone"><i class="fas fa-phone"></i> Điện thoại</label>
+                    <input id="mem-phone" type="tel" placeholder="0987654321" required
+                        aria-label="Số điện thoại hội viên">
+                </div>
+                <div class="form-group">
+                    <label for="mem-email"><i class="far fa-envelope"></i> Email</label>
+                    <input id="mem-email" type="email" placeholder="example@gmail.com" required
+                        aria-label="Email hội viên">
+                </div>
+                <div class="form-group">
+                    <label for="mem-address"><i class="fas fa-map-marker-alt"></i> Địa chỉ</label>
+                    <input id="mem-address" placeholder="Địa chỉ hội viên" required aria-label="Địa chỉ hội viên">
+                </div>
+                <div class="form-group">
+                    <label for="mem-package"><i class="fas fa-dumbbell"></i> Gói tập</label>
+                    <select id="mem-package" required aria-label="Gói tập hội viên">
+                        <option value="">Chọn gói tập</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="mem-trainer"><i class="fas fa-user-tie"></i> Huấn luyện viên</label>
+                    <select id="mem-trainer" required aria-label="Huấn luyện viên của hội viên">
+                        <option value="">Chọn huấn luyện viên</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="mem-start-date"><i class="fas fa-calendar-check"></i> Ngày bắt đầu</label>
+                    <input type="date" id="mem-start-date" required aria-label="Ngày bắt đầu gói tập">
+                </div>
+                <!-- Đã bỏ thuộc tính Ngày hết hạn -->
+            </div>
+            <div class="form-actions compact-actions">
+                <button class="btn btn-primary btn-sm" onclick="saveMember()" aria-label="Lưu thông tin hội viên">
+                    <i class="fas fa-save"></i> Lưu
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="hideAllForms()" aria-label="Hủy bỏ">
+                    <i class="fas fa-times"></i> Hủy
+                </button>
+            </div>
+        </div>
+
+        <!-- Trainer Form Content -->
+        <div id="trainer-form-content" class="form-content" data-form-type="trainer">
+            <div class="form-header">
+                <i class="fas fa-user-tie"></i>
+                <h3>Thông tin huấn luyện viên</h3>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="tr-id"><i class="fas fa-id-badge"></i> ID Huấn luyện viên</label>
+                    <input type="text" id="tr-id" placeholder="Tự động tạo" readonly aria-label="ID Huấn luyện viên">
+                </div>
+                <div class="form-group">
+                    <label for="tr-name"><i class="far fa-user"></i> Họ tên</label>
+                    <input id="tr-name" placeholder="Trần Văn B" required aria-label="Họ tên huấn luyện viên">
+                </div>
+                <div class="form-group">
+                    <label for="tr-specialization"><i class="fas fa-certificate"></i> Chuyên môn</label>
+                    <select id="tr-specialization" required aria-label="Chuyên môn huấn luyện viên">
+                        <option value="">Chọn chuyên môn</option>
+                        <option value="Thể hình">Thể hình</option>
+                        <option value="Yoga">Yoga</option>
+                        <option value="Cardio">Cardio</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tr-birth-year"><i class="fas fa-calendar"></i> Năm sinh</label>
+                    <input type="number" id="tr-birth-year" placeholder="Ví dụ: 1990" min="1900" max="2024" required
+                        aria-label="Năm sinh huấn luyện viên">
+                </div>
+                <div class="form-group">
+                    <label for="tr-phone"><i class="fas fa-phone"></i> Điện thoại</label>
+                    <input id="tr-phone" type="tel" placeholder="0987654321" required
+                        aria-label="Số điện thoại huấn luyện viên">
+                </div>
+                <div class="form-group">
+                    <label for="tr-email"><i class="far fa-envelope"></i> Email</label>
+                    <input id="tr-email" type="email" placeholder="example@gmail.com" required
+                        aria-label="Email huấn luyện viên">
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-secondary" onclick="hideAllForms()" aria-label="Hủy bỏ"><i
+                        class="fas fa-times"></i> Hủy</button>
+                <button class="btn btn-primary" onclick="saveTrainer()" aria-label="Lưu thông tin huấn luyện viên"><i
+                        class="fas fa-save"></i> Lưu thông
+                    tin</button>
+            </div>
+        </div>
+
+        <!-- Package Form Content -->
+        <div id="package-form-content" class="form-content" data-form-type="package">
+            <div class="form-header">
+                <i class="fas fa-box"></i>
+                <h3>Thông tin gói tập</h3>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="pkg-id"><i class="fas fa-id-badge"></i> ID Gói tập</label>
+                    <input type="text" id="pkg-id" placeholder="Tự động tạo" readonly aria-label="ID Gói tập">
+                </div>
+                <div class="form-group">
+                    <label for="pkg-name">Tên gói tập</label>
+                    <input id="pkg-name" placeholder="Tên gói tập" required aria-label="Tên gói tập">
+                </div>
+                <div class="form-group">
+                    <label for="pkg-price">Giá</label>
+                    <input id="pkg-price" placeholder="Giá (ví dụ: 5.000.000đ)" required aria-label="Giá gói tập">
+                </div>
+                <div class="form-group">
+                    <label for="pkg-duration">Thời hạn (tháng)</label>
+                    <input type="number" id="pkg-duration" placeholder="Ví dụ: 6" min="1" required
+                        aria-label="Thời hạn gói tập theo tháng">
+                </div>
+                <div class="form-group">
+                    <label for="pkg-benefit">Lợi ích</label>
+                    <textarea id="pkg-benefit" placeholder="Lợi ích (cách nhau bởi dấu phẩy)"
+                        aria-label="Lợi ích gói tập"></textarea>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" onclick="savePackage()" aria-label="Lưu gói tập">Lưu</button>
+                <button class="btn btn-secondary" onclick="hideAllForms()" aria-label="Hủy bỏ">Hủy</button>
+            </div>
+        </div>
+
+        <!-- Account Form Content -->
+        <div id="account-form-content" class="form-content" data-form-type="account">
+            <div class="form-header">
+                <i class="fas fa-user-cog"></i>
+                <h3>Thông tin tài khoản</h3>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="acc-id"><i class="fas fa-id-badge"></i> ID Tài khoản</label>
+                    <input type="text" id="acc-id" placeholder="Tự động tạo" readonly aria-label="ID Tài khoản">
+                </div>
+                <div class="form-group">
+                    <label for="acc-username">Tên đăng nhập</label>
+                    <input id="acc-username" placeholder="Tên đăng nhập" required aria-label="Tên đăng nhập">
+                </div>
+                <div class="form-group">
+                    <label for="acc-fullname">Họ tên</label>
+                    <input id="acc-fullname" placeholder="Họ tên" required aria-label="Họ tên">
+                </div>
+                <div class="form-group">
+                    <label for="acc-email">Email</label>
+                    <input id="acc-email" type="email" placeholder="Email" required aria-label="Email">
+                </div>
+                <div class="form-group">
+                    <label for="acc-password">Mật khẩu</label>
+                    <input id="acc-password" type="password" placeholder="Mật khẩu (để trống nếu không đổi)"
+                        aria-label="Mật khẩu">
+                </div>
+                <div class="form-group">
+                    <label for="acc-role">Quyền</label>
+                    <select id="acc-role" required aria-label="Quyền tài khoản">
+                        <option value="">Chọn quyền</option>
+                        <option value="admin">Admin</option>
+                        <option value="trainer">Huấn luyện viên</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" onclick="saveAccount()" aria-label="Lưu tài khoản">Lưu</button>
+                <button class="btn btn-secondary" onclick="hideAllForms()" aria-label="Hủy bỏ">Hủy</button>
+            </div>
+        </div>
+
+        <!-- Transaction Form Content -->
+        <div id="transaction-form-content" class="form-content" data-form-type="transaction">
+            <div class="form-header">
+                <i class="fas fa-exchange-alt"></i>
+                <h3>Thêm giao dịch mới</h3>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="trans-id"><i class="fas fa-id-badge"></i> ID Giao dịch</label>
+                    <input type="text" id="trans-id" placeholder="Tự động tạo" readonly aria-label="ID Giao dịch">
+                </div>
+                <div class="form-group">
+                    <label for="trans-member"><i class="fas fa-user"></i> Hội viên</label>
+                    <select id="trans-member" required aria-label="Hội viên">
+                        <option value="">Chọn hội viên</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="trans-description"><i class="fas fa-file-invoice"></i> Mô tả</label>
+                    <input id="trans-description" placeholder="Ví dụ: Đăng ký gói Premium 6 tháng" required
+                        aria-label="Mô tả giao dịch">
+                </div>
+                <div class="form-group">
+                    <label for="trans-amount"><i class="fas fa-dollar-sign"></i> Số tiền</label>
+                    <input type="number" id="trans-amount" placeholder="Ví dụ: 5000000" required min="0"
+                        aria-label="Số tiền giao dịch">
+                </div>
+                <div class="form-group">
+                    <label for="trans-date"><i class="fas fa-calendar-alt"></i> Ngày giao dịch</label>
+                    <input type="date" id="trans-date" required aria-label="Ngày giao dịch">
+                </div>
+                <div class="form-group">
+                    <label for="trans-status"><i class="fas fa-info-circle"></i> Trạng thái</label>
+                    <select id="trans-status" required aria-label="Trạng thái giao dịch">
+                        <option value="Đã thanh toán">Đã thanh toán</option>
+                        <option value="Chưa thanh toán">Chưa thanh toán</option>
+                        <option value="Đã hủy">Đã hủy</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" onclick="saveTransaction()" aria-label="Lưu giao dịch">
+                    <i class="fas fa-save"></i> Lưu giao dịch
+                </button>
+                <button class="btn btn-secondary" onclick="hideAllForms()" aria-label="Hủy bỏ">
+                    <i class="fas fa-times"></i> Hủy bỏ
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+    <script src="member.js"></script>
+    <script src="trainer.js"></script>
+    <script src="package.js"></script>
+    <script src="account.js"></script>
+    <script src="transaction.js"></script>
+    <script src="report.js"></script>
+</body>
+
+</html>

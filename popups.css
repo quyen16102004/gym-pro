@@ -1,0 +1,155 @@
+/* MultipleFiles/popups.css */
+.form-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--card-background-light);
+    padding: 15px 20px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    max-width: 400px;
+    max-height: 85vh;
+    width: 90%;
+    border: 1px solid var(--border-light);
+    overflow-y: auto;
+    display: none;
+}
+
+.form-popup .popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.form-popup h3 {
+    color: var(--primary-color);
+    font-size: var(--font-size-xl);
+    margin: 0;
+    font-weight: 700;
+}
+
+.form-popup .close-popup {
+    background: none;
+    border: none;
+    font-size: var(--font-size-lg);
+    color: #6C757D;
+    cursor: pointer;
+}
+
+.form-popup .form-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: var(--space-lg);
+    color: var(--primary-color);
+}
+
+.form-popup .form-header h3 {
+    margin: 0;
+    font-size: var(--font-size-h2);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.form-popup .form-header i {
+    font-size: var(--font-size-h1);
+}
+
+.form-popup .form-description {
+    font-size: 0.85rem;
+    color: #6C757D;
+    margin-top: var(--space-xs);
+    text-align: center;
+}
+
+.form-popup .form-grid {
+    display: grid;
+    grid-template-columns: column;
+    gap: 10px;
+
+}
+
+.form-group {
+    margin-bottom: 0;
+}
+
+.form-popup input,
+.form-popup select,
+.form-popup textarea {
+    padding: var(--input-padding-y) var(--input-padding-x);
+    height: var(--input-height);
+    width: 100%;
+    font-size: var(--input-font-size);
+    border-radius: var(--input-border-radius);
+    border: 1px solid var(--input-border-color);
+    background-color: var(--input-bg-color);
+    color: var(--input-text-color);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.form-popup textarea {
+    min-height: 90px;
+    height: auto;
+}
+
+.form-popup input::placeholder,
+.form-popup textarea::placeholder {
+    color: var(--input-placeholder-color);
+}
+
+.form-popup input:focus,
+.form-popup select:focus,
+.form-popup textarea:focus {
+    border-color: var(--input-focus-border-color);
+    box-shadow: var(--input-focus-shadow);
+    outline: none;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+    display: none;
+}
+
+.report-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+}
+
+.report-card {
+    text-align: center;
+    padding: var(--space-xl);
+    background: var(--card-background-light);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-light);
+}
+
+.report-card h3 {
+    font-size: var(--font-size-lg);
+    color: var(--primary-color);
+    margin-bottom: var(--space-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+}
+
+.report-card .report-value {
+    font-size: var(--font-size-h2);
+    font-weight: 700;
+    color: var(--secondary-color);
+}
